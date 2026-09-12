@@ -2,83 +2,88 @@
 
 
 
-# [Project Name] 🎯
+# POWER CUT ⚡ 🎯
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: Useless Projects Group 4
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Team Lead:Dikshith Ps- [Thejus Engineering College]
+- Member 2: Karthik KP- [Thejus EngineeringCollege]
+
 
 ### Project Description
-[2-3 lines about what your project does]
+POWER CUT is a funny, intentionally useless browser game where players spend 2 minutes searching a dark house for an object that was never there. The player memorizes a target, survives a power cut, searches through 40+ objects, and gets only one 2-second flashlight before discovering the ridiculous truth.
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+People were apparently suffering from a serious problem: they had nothing pointless to search for during a power cut. POWER CUT solves this completely unnecessary problem by making players spend 120 seconds searching for an object that does not exist.
 
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
-
+The game creates a cluttered virtual house filled with objects, randomly selects an impossible target, hides the target name after the power cut, darkens the room, and gives the player 120 seconds to search. The player can use a single 2-second whole-room flashlight, but the target is never actually present. At the end, the game proudly reveals that the player's time has been successfully wasted.
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
+For Software:
+
+HTML5, CSS3, JavaScript
+
+Node.js, Express.js
+
+CORS and REST API
+
+Git, GitHub, VS Code
 
 For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
+
+No hardware required
+
+Software-only web game
+
+Desktop/laptop with a modern web browser
+
+Internet connection for the hosted version
 
 ### Implementation
 For Software:
 # Installation
-[commands]
+npm install
 
 # Run
-[commands]
+node server.js
+
+Open the local URL shown by the server in a web browser.
 
 ### Project Documentation
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
+<img width="1392" height="677" alt="image" src="https://github.com/user-attachments/assets/e6b60b56-461e-42cb-9e85-e101f788174b" />
+
 *Add caption explaining what this shows*
 
-![Screenshot2](Add screenshot 2 here with proper name)
+<img width="1505" height="666" alt="image" src="https://github.com/user-attachments/assets/f1f4c4d6-a1fb-47ba-9a14-f440b54c7abd" />
+
 *Add caption explaining what this shows*
 
-![Screenshot3](Add screenshot 3 here with proper name)
+<img width="1212" height="682" alt="image" src="https://github.com/user-attachments/assets/bd076b0b-7c1c-4e9e-8183-67face1635e7" />
+
 *Add caption explaining what this shows*
 
 # Diagrams
-![Workflow](Add your workflow/architecture diagram here)
+Game workflow: Start → Memorize Target → Power Cut → Search for 120 Seconds → One-Time Flashlight → Time Up → Uselessness Reveal
+
+
 *Add caption explaining your workflow*
 
 For Hardware:
 
 # Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
+No physical circuit is required because POWER CUT is a software-only project
 
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
 
-# Build Photos
-![Components](Add photo of your components here)
-*List out all components shown*
 
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
 
 ### Project Demo
 # Video
@@ -86,12 +91,12 @@ For Hardware:
 *Explain what the video demonstrates*
 
 # Additional Demos
-[Add any extra demo materials/links]
+[GitHub repository: https://github.com/Dikshithps/useless_projects_group4
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+- Dikshith Ps:
+- Karthik Kp: 
+
 
 ---
 Made with ❤️ at TinkerHub Useless Projects 
