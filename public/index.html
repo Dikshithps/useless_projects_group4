@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚡ POWER CUT - A Completely Useless Search Game</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Electric Sparks Canvas Background -->
+  <canvas id="sparks-canvas"></canvas>
+
+  <!-- Navigation / Top Header Bar -->
+  <header id="top-bar" class="glass-header">
+    <div class="header-brand" id="btn-logo">
+      <span class="spark-icon">⚡</span> POWER CUT
+    </div>
+    
+    <div id="game-status-widgets" class="hidden">
+      <div class="widget-badge" id="level-badge">🏠 LARGE HOUSE (59 OBJECTS)</div>
+      <div class="widget-badge timer-badge" id="timer-badge">⏱️ <span id="timer-val">02:00</span></div>
+      <button id="btn-flashlight" class="btn-flashlight-widget">
+        <span class="fl-icon">🔦</span> FLASHLIGHT <span id="flashlight-cooldown-badge" class="fl-cooldown-tag">(1 USE)</span>
+      </button>
+    </div>
+
+    <div class="header-controls">
+      <button id="btn-sound-toggle" class="btn-icon">🔊 SOUND ON</button>
+    </div>
+  </header>
+
+  <!-- SCREEN 1: LANDING PAGE -->
+  <section id="screen-landing" class="game-screen active">
+    <div class="hero-container">
+      <div class="swinging-bulb-container">
+        <div class="bulb-wire"></div>
+        <div class="bulb-head">💡</div>
+      </div>
+      
+      <h1 class="glitch-title">⚡ POWER CUT</h1>
+      <p class="subtitle">A Completely Useless Search Game</p>
+      <p class="secondary-hero-text">"Find the object before time runs out."</p>
+
+      <div class="hero-actions">
+        <button id="btn-start-game" class="btn-primary btn-pulse">
+          🔌 START WASTING TIME
+        </button>
+        <button id="btn-how-to-play" class="btn-secondary">
+          📖 HOW TO PLAY
+        </button>
+      </div>
+
+      <div class="disclaimer">
+        ⚠️ No electricity was harmed in this game.
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 2: HOW TO PLAY -->
+  <section id="screen-how-to-play" class="game-screen hidden">
+    <div class="card-container">
+      <h2>📖 HOW TO PLAY</h2>
+      <p class="guide-subtitle">3 Simple Steps to Accomplishing Absolutely Nothing</p>
+
+      <div class="tutorial-grid">
+        <div class="tut-card">
+          <div class="tut-step">STEP 1</div>
+          <div class="tut-icon">👀</div>
+          <h3>MEMORIZE</h3>
+          <p>Look around the room and remember your target.</p>
+        </div>
+
+        <div class="tut-card">
+          <div class="tut-step">STEP 2</div>
+          <div class="tut-icon">⚡</div>
+          <h3>POWER CUT</h3>
+          <p>The electricity goes out.</p>
+        </div>
+
+        <div class="tut-card">
+          <div class="tut-step">STEP 3</div>
+          <div class="tut-icon">🔎</div>
+          <h3>SEARCH</h3>
+          <p>Search the room before the timer reaches zero.</p>
+        </div>
+      </div>
+
+      <div class="sneaky-warning">
+        "You might want to remember exactly what you're looking for..." 😉
+      </div>
+
+      <div class="center-btn">
+        <button id="btn-confirm-ready" class="btn-primary">
+          I'M READY
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 3: GAMEPLAY ROOM & BLACKOUT SEARCH -->
+  <section id="screen-gameplay" class="game-screen hidden">
+    
+    <!-- Target Mission Banner (Shown ONLY during Memorization; HIDDEN during blackout search) -->
+    <div id="mission-banner" class="mission-bar">
+      <div id="memo-target-area" class="mission-text">
+        <span class="search-label">🔎 YOUR TARGET:</span>
+        <span id="target-name-display" class="target-highlight">FIND THE RED MUG</span>
+      </div>
+      <div id="memo-timer-display" class="memo-subtext">
+        👀 MEMORIZE THE ROOM! <span id="memo-seconds">3</span>
+      </div>
+      <div id="search-timer-hud" class="search-hud-timer hidden">
+        ⏱️ <span id="hud-timer-display">02:00</span>
+      </div>
+    </div>
+
+    <!-- Interactive House Room Canvas -->
+    <div id="room-wrapper" class="room-frame">
+      
+      <!-- Whole Room Glow Overlay (Active when Flashlight is ON) -->
+      <div id="whole-room-glow" class="whole-room-glow-overlay hidden"></div>
+
+      <!-- House Objects Canvas Container -->
+      <div id="room-container" class="room-canvas room-lighting-100">
+        <!-- 59 Room objects dynamically injected here -->
+      </div>
+
+      <!-- Power Cut Announcement Popup -->
+      <div id="blackout-title-popup" class="power-cut-announcement hidden">
+        ⚡ POWER CUT!
+      </div>
+
+      <!-- Flashlight Active Banner (EXACTLY 2 SECONDS) -->
+      <div id="flashlight-active-banner" class="flashlight-active-hud hidden">
+        🔦 FLASHLIGHT ACTIVE — <span id="fl-seconds-count">2</span>s
+      </div>
+
+      <!-- Flashlight Helper HUD Banner -->
+      <div id="flashlight-hud" class="flashlight-bar hidden">
+        [CLICK <span class="fl-highlight">🔦 FLASHLIGHT</span> BUTTON (1 USE ONLY) OR PRESS <kbd>SPACEBAR</kbd>]
+      </div>
+
+      <!-- Floating Wrong Click Toast Popups -->
+      <div id="toast-container" class="toast-area"></div>
+
+      <!-- Ambient Distractions & Harmless Voice Prompts -->
+      <div id="ambient-prompt" class="ambient-toast hidden"></div>
+    </div>
+
+  </section>
+
+  <!-- SCREEN 4: ROOM ANALYSIS & SCANNER -->
+  <section id="screen-analysis" class="game-screen hidden">
+    <div class="card-container text-center">
+      <h2 class="scanner-title">⏰ TIME'S UP!</h2>
+      <h3 class="scanner-subtitle">🔎 SEARCH COMPLETE</h3>
+
+      <div class="stats-preview-grid">
+        <div class="stat-pill">SEARCH TIME: <strong>120s</strong></div>
+        <div class="stat-pill">OBJECTS CHECKED: <strong id="res-checked">0</strong></div>
+        <div class="stat-pill">WRONG CLICKS: <strong id="res-clicks">0</strong></div>
+        <div class="stat-pill">FLASHLIGHT USED: <strong id="res-flashlight">1</strong></div>
+        <div class="stat-pill highlight-zero">OBJECT FOUND: <strong>0</strong></div>
+      </div>
+
+      <div class="scanner-box">
+        <div class="scanner-header">
+          <span class="fan-loader">🌀</span> 🔬 ANALYZING ROOM...
+        </div>
+        <div class="scanner-progress-track">
+          <div id="scanner-progress-bar" class="scanner-bar"></div>
+        </div>
+        <div id="scanner-status-text" class="scanner-status">Checking sofa, table, kitchen...</div>
+      </div>
+
+      <div id="analysis-revelation" class="reveal-dramatic hidden">
+        <h1 class="target-not-found">❌ TARGET NOT FOUND</h1>
+        <div class="dramatic-wait">
+          <h2>WAIT...</h2>
+          <div id="reveal-target-name-box" class="reveal-target-card">
+            🔎 YOUR TARGET WAS: <strong id="reveal-target-name" class="target-text-highlight">RED MUG</strong>
+          </div>
+          <p class="revelation-text">🤡 IT WAS NEVER IN THE ROOM.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 5: GRAND USELESSNESS REVEAL -->
+  <section id="screen-reveal" class="game-screen hidden">
+    <div class="useless-card">
+      <div class="reveal-header">
+        <h1 class="congrats-title">🎉 CONGRATULATIONS!</h1>
+        <p class="waste-summary">
+          You spent <strong>120 seconds</strong> searching for something that <strong>never existed.</strong>
+        </p>
+      </div>
+
+      <div class="score-card">
+        <h3>YOUR RESULTS</h3>
+
+        <div class="score-metrics-grid">
+          <div class="metric-box">
+            <span class="m-label">TIME WASTED</span>
+            <span class="m-val" id="metric-time">120 seconds</span>
+          </div>
+          <div class="metric-box">
+            <span class="m-label">OBJECTS SEARCHED</span>
+            <span class="m-val" id="metric-searched">37</span>
+          </div>
+          <div class="metric-box">
+            <span class="m-label">WRONG CLICKS</span>
+            <span class="m-val" id="metric-clicks">42</span>
+          </div>
+          <div class="metric-box">
+            <span class="m-label">FLASHLIGHT USED</span>
+            <span class="m-val" id="metric-flashlight">1</span>
+          </div>
+          <div class="metric-box">
+            <span class="m-label">OBJECTS FOUND</span>
+            <span class="m-val zero-tag" id="metric-found">0</span>
+          </div>
+          <div class="metric-box">
+            <span class="m-label">USEFULNESS</span>
+            <span class="m-val zero-tag">0%</span>
+          </div>
+          <div class="metric-box highlight-gold full-width-metric">
+            <span class="m-label">USELESSNESS</span>
+            <span class="m-val big-useless">100%</span>
+          </div>
+        </div>
+
+        <div class="rating-section">
+          <h4>⭐ USELESSNESS RATING ⭐</h4>
+          <div class="stars-display">⭐⭐⭐⭐⭐</div>
+          <p class="rating-quote">"You have successfully accomplished absolutely nothing."</p>
+        </div>
+      </div>
+
+      <div class="slogan-footer">
+        <h2>⚡ POWER CUT</h2>
+        <p>A COMPLETELY USELESS GAME</p>
+        <p class="final-thank-you">Thank you for wasting your valuable time with us. 😂</p>
+      </div>
+
+      <div class="final-actions">
+        <button id="btn-waste-more" class="btn-primary btn-pulse">
+          🔄 WASTE MORE TIME
+        </button>
+        <button id="btn-play-again" class="btn-secondary">
+          🏠 PLAY AGAIN
+        </button>
+        <button id="btn-exit" class="btn-danger">
+          🚪 EXIT
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXIT CONFIRMATION MODAL -->
+  <div id="modal-exit" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-icon">⚠️</div>
+      <h3>Are you sure you want to stop wasting your time?</h3>
+      <p>There are still so many nonexistent objects left to search for!</p>
+      <div class="modal-actions">
+        <button id="btn-exit-yes" class="btn-danger">YES, I'M DONE</button>
+        <button id="btn-exit-no" class="btn-primary">NO, WASTE MORE TIME 😂</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/room-objects.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
