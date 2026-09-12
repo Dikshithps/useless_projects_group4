@@ -90,6 +90,10 @@ No physical circuit is required because POWER CUT is a software-only project
 [Add your demo video link here]
 *Explain what the video demonstrates*
 
+### 🌐 Live Demo
+
+[⚡ Play POWER CUT](https://useless-projects-group4.vercel.app/)
+
 # Additional Demos
 [GitHub repository: https://github.com/Dikshithps/useless_projects_group4
 
